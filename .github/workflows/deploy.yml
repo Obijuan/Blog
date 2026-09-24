@@ -25,9 +25,9 @@ jobs:
           fetch-depth: 0
 
       - name: Instalar Zola
-        uses: taiki-e/setup-zola@v1
+        uses: taiki-e/install-action@v2
         with:
-          zola-version: '0.22.1'
+          tool: zola@0.22.1
 
       - name: Compilar sitio con Zola
         run: zola build
