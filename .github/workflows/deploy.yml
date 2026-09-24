@@ -32,6 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           BUILD_DIR: .
+          CONFIG_FILE: zola.toml
           BUILD_ONLY: true
 
       - name: Configurar Pages
