@@ -28,9 +28,10 @@ jobs:
 
       - name: Compilar sitio con Zola
         uses: shalzz/zola-deploy-action@v0.19.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           BUILD_DIR: .
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BUILD_ONLY: true
 
       - name: Configurar Pages
