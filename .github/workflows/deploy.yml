@@ -1,0 +1,48 @@
+name: Deploy Zola site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Cambia a 'master' si tu rama predeterminada se llama así
+
+# Permisos necesarios para publicar artefactos en GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite solo un despliegue activo a la vez
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+        with:
+          submodules: true  # <--- IMPORTANTE: Descarga el tema desde tu submódulo de Git
+          fetch-depth: 0
+
+      - name: Compilar sitio con Zola
+        uses: shalzz/zola-deploy-action@v0.19.2
+        with:
+          BUILD_DIR: .
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUILD_ONLY: true
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir artefacto compilado
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+        
