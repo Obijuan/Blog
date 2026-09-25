@@ -1,5 +1,7 @@
 +++
 title = "Archivo"
 template = "archive.html"
-transparent = false
+sort_by = "date"
+render = true
+transparente = false
 +++
